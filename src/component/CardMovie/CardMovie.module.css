@@ -1,0 +1,23 @@
+.containerCardMovie{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 250px;
+    height: 500px;
+    border-radius: 40px;
+    margin-top: 25px;
+}
+.imageCard{
+    width: 250px;
+    height: 433px;
+    border-radius: 30px;
+    object-fit: cover;
+}
+.titleMovie{
+    font-size: 1.2rem ;
+    font-weight: bold;
+}
+.titleYearMovie{
+    color: gray;
+    font-weight: bold;
+}
