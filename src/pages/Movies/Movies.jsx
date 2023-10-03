@@ -1,29 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
 import CardMovie from '../../component/CardMovie/CardMovie'
 import style from './Movies.module.css'
-
-const urlApi = import.meta.env.VITE_URL_API_MOVIES
-
-
+import { useDispatch, useSelector } from 'react-redux'
+import { getMovies, selectCopyMovies, selectMovies, setYears, } from '../../redux/appSlice'
 
 const Movies = () => {
 
-  const [movies, setMovies] = useState([]);
-
-  const getMovies = async () => {
-    const { data } = await axios.get(urlApi, {
-      headers: {
-        'X-RapidAPI-Key': '094ef17c14msh3c9f12c24492db1p193f63jsne263e5d9fadb',
-        'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-      }
-    })
-    setMovies(data.results)
-  }
+  const movies = useSelector(selectMovies);
+  const copyMovies = useSelector(selectCopyMovies);
   
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if(movies.length === 0){
-      getMovies()
+    if(movies?.length === 0){
+      dispatch(getMovies())
     }
     console.log(movies)
   }, [movies])
@@ -31,7 +21,7 @@ const Movies = () => {
   return (
     <div className={`${style.containerMovie}`}>
       {
-        movies?.map(movie => (
+        copyMovies?.map(movie => (
           <CardMovie
             key={movie.id}
             image={movie.primaryImage?.url}

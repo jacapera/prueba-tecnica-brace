@@ -6,7 +6,6 @@
     position: relative;
     top: 40%;
 }
-
 @media screen and (min-width:150px) and (max-width:768px){
     .containerBanner{
         display: flex;
@@ -17,7 +16,6 @@
         justify-content: center;
         align-items: center;
         padding: 10px;
-        background-color: red;
         background-position: center;
         background-size: cover;
     }
@@ -54,7 +52,7 @@
     .buttonSlide{
         width: 10px;
         height: 10px;
-        background-color: black;
+        background-color: white;
         border-radius: 100%;
         transition: 500ms;
     }
@@ -119,6 +117,7 @@
         align-items: center;
         background-position: center;
         background-size: cover;
+        
     }
     .slice{
         display: flex;
@@ -144,7 +143,7 @@
     .buttonSlide{
         width: 20px;
         height: 20px;
-        background-color: black;
+        background-color: white;
         border-radius: 100%;
         transition: 500ms;
     }
@@ -152,17 +151,19 @@
         display: flex;
         gap: 15px;
         position: relative;
-        top: 20%;
+        top: 17%;
+        /* background-color: green; */
     }
     .infoBanner{
         display: flex;
         flex-direction: column;
         width: 40%;
         height: 45%;
+        gap: 20px;
         position: relative;
         right: 20%;
         top: 5%;
-        gap: 20px;
+        /* background-color: blue; */
     }
     .titleBanner{
         color: #fff;
@@ -171,6 +172,11 @@
     }
     .descriptionBanner{
         color: #fff;
+        height: 100%;
+        overflow: hidden;
+        /* white-space: nowrap; */
+        text-overflow: ellipsis;
+        font-size: 1.4rem;
     }
     .playTrailer{
         display: flex;
@@ -196,8 +202,15 @@
         font-size: 0.8rem;
     }
 }
-
-
+/* 
+@media screen and (min-width:1024px){
+    .containerbuttonSlide{
+        display: flex;
+        gap: 15px;
+        position: relative;
+        top: 15%;
+    }
+} */
 
 .iconAngIzq:hover{
     background-color: transparent;
@@ -209,7 +222,7 @@
 }
 .buttonSlide:hover{
 
-    background-color: white;
+    background-color: red;
     transform: scale(1.5);
 }
 .playTrailer:hover{

@@ -6,6 +6,8 @@ import IndianaJones from './assets/harrison-ford-indiana-jones-5-646756436712b.j
 import MarioBros from './assets/chris-pratt-anya-taylor-joy-the-super-mario-bros-movie-mario-princess-peach-princess-peach-6426d72c3bd17.jpg'
 import Elemental from './assets/elemental-1662973129.jpg'
 import johnWick4 from './assets/keanu-reeves-john-wick-4-1668099111-641dd349d68f7.jpeg'
+import SearchBar from './component/SearchBar/SearchBar'
+import Footer from './component/Footer/Footer'
 
 function App() {
 
@@ -22,10 +24,15 @@ function App() {
         <NavBar />
         <Banner slides={slides}/>
       </header>
-      <main className='flex justify-center items-center'>
-        
+      <main className='flex flex-col justify-center items-center'>
+        <header className='flex w-[90%]'>
+          <SearchBar />
+        </header>
         <Movies />
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   )
 }

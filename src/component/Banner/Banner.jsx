@@ -26,7 +26,7 @@ const Banner = ({ slides }) => {
 
   return (
     <div
-    style={{ backgroundImage: `url('${slides[currentIndex].url}')` }}
+    style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),url('${slides[currentIndex].url}')` }}
     className={`${style.containerBanner} `}
 
     >
@@ -42,27 +42,27 @@ const Banner = ({ slides }) => {
           onClick={goToNext}
         />
       </div>
-      <div className={`${style.infoBanner}`}>
-        <h1 className={`${style.titleBanner}`}>{slides[currentIndex].title}</h1>
-        <p className={`${style.descriptionBanner}`}>{slides[currentIndex].description}</p>
+        <div className={`${style.infoBanner}`}>
+          <h1 className={`${style.titleBanner}`}>{slides[currentIndex].title}</h1>
+          <p className={`${style.descriptionBanner}`}>{slides[currentIndex].description}</p>
 
-        <div className={`${style.playTrailer} `}>
-          <div className={`${style.logoPlay}`}>
-            <img className='text-red-500' src={play} alt="play" />
-          </div>
-          <span className={`${style.span}`}>WATCH TRAILER</span>
-        </div>
-        
-      </div>
-      <div className={`${style.containerbuttonSlide}`}>
-        {
-          slides.map((slide, index) => (
-            <div key={index} >
-              <button className={`${style.buttonSlide}`} onClick={() => goToSlide(index)} ></button>
+          <div className={`${style.playTrailer} `}>
+            <div className={`${style.logoPlay}`}>
+              <img className='text-red-500' src={play} alt="play" />
             </div>
-          ))
-        }
-      </div>
+            <span className={`${style.span}`}>WATCH TRAILER</span>
+          </div>
+
+        </div>
+        <div className={`${style.containerbuttonSlide}`}>
+          {
+            slides.map((slide, index) => (
+              <div key={index} >
+                <button className={`${style.buttonSlide}`} onClick={() => goToSlide(index)} ></button>
+              </div>
+            ))
+          }
+        </div>
     </div>
   )
 }
