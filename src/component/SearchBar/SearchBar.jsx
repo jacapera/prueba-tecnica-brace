@@ -6,9 +6,12 @@ import filtrar from '../../assets/filtrar.png'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   filterByName,
+  orderByNameAsc,
+  orderByNameDes,
   selectCopyMovies,
   selectMovies,
   selectYears,
+  setCopyMovies,
   setFilteredMovieByYear,
   setYears
 } from '../../redux/appSlice'
@@ -16,6 +19,7 @@ import {
 const SearchBar = () => {
 
   const [name, setName] = useState("");
+  const [order, setOrder] = useState(true);
 
   const movies = useSelector(selectMovies);
   const copyMovies = useSelector(selectCopyMovies);
@@ -41,6 +45,21 @@ const SearchBar = () => {
     } else {
       dispatch(filterByName({name, movies}))
     }
+  }
+
+  const orderMovie = () => {
+    console.log(order)
+    if(order){
+      setOrder(!order)
+      return dispatch(orderByNameAsc({movies: copyMovies}))
+    }
+    setOrder(!order)
+    dispatch(orderByNameDes({movies: copyMovies}))
+  }
+
+  const clear = () => {
+    setName("")
+    dispatch(setCopyMovies(movies))
   }
 
   useEffect(() => {
@@ -82,8 +101,8 @@ const SearchBar = () => {
           >
             <option value={"default"} hidden >AÑO</option>
             {
-              years?.map((year) => (
-                <option key={year}>{year}</option>
+              years?.map((year, index) => (
+                <option key={index}>{year}</option>
               ))
             }
           </select>
@@ -96,6 +115,7 @@ const SearchBar = () => {
             `}>
               <span className={`font-bold`}>ORDENAR</span>
               <img
+                onClick={orderMovie}
                 src={ordenar} alt="icon buscar"
                 className={`flex w-[20px] h-[20px] cursor-pointer `}
               />
@@ -116,6 +136,7 @@ const SearchBar = () => {
             </div>
           </div>
           <button
+            onClick={clear}
             className={`
               flex w-[100px] h-[45px]
               justify-center items-center

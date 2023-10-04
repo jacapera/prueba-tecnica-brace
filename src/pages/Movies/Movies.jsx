@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import CardMovie from '../../component/CardMovie/CardMovie'
 import style from './Movies.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { getMovies, selectCopyMovies, selectError, selectMovies, setYears, } from '../../redux/appSlice'
+import { getMovies, selectCopyMovies, selectError, selectMovies } from '../../redux/appSlice'
 import NotFound from '../../component/NotFound/NotFound'
 import anguloIzq from '../../assets/angulo-izquierdo.png'
 import anguloDer from '../../assets/angulo-derecho.png'
@@ -51,7 +51,7 @@ const Movies = () => {
 
   const irHaciaArriba = () => {
     window.scrollTo({
-      top: 700,
+      top: 500,
       behavior: 'smooth',
     });
   }

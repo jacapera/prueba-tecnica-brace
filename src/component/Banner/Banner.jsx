@@ -3,6 +3,7 @@ import style from './Banner.module.css'
 import anguloIzq from '../../assets/angulo-izquierdo.png'
 import anguloDer from '../../assets/angulo-derecho.png'
 import play from '../../assets/klipartz.com.png'
+import { Link } from 'react-router-dom'
 
 const Banner = ({ slides }) => {
 
@@ -45,13 +46,14 @@ const Banner = ({ slides }) => {
         <div className={`${style.infoBanner}`}>
           <h1 className={`${style.titleBanner}`}>{slides[currentIndex].title}</h1>
           <p className={`${style.descriptionBanner}`}>{slides[currentIndex].description}</p>
-
-          <div className={`${style.playTrailer} `}>
-            <div className={`${style.logoPlay}`}>
-              <img className={`text-red-500 `} src={play} alt="play" />
+          <Link to={`/trailer/${currentIndex}`}>
+            <div className={`${style.playTrailer} `} >
+              <div className={`${style.logoPlay}`}>
+                <img className={`text-red-500 `} src={play} alt="play" />
+              </div>
+              <span className={`${style.span}`}>WATCH TRAILER</span>
             </div>
-            <span className={`${style.span}`}>WATCH TRAILER</span>
-          </div>
+          </Link>
 
         </div>
         <div className={`${style.containerbuttonSlide}`}>
