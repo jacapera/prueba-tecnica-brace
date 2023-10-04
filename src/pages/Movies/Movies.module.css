@@ -1,26 +1,66 @@
-@media screen and(min-width:150px) and (max-width:425px){
+@media screen and (min-width:150px) and (max-width:425px){
     .containerMovie{
         display:flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 250px;
-        border: 2px solid red;
-
     }
+    .buttonPage{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 16px;
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+        border: 1px solid black;
+    }
+
 }
 
 @media screen and (min-width:426px){
     .containerMovie{
         display: flex;
-        width: 90%;
+        width: 100%;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
         padding: 15px;
-        gap: 30px;
-        border: 2px solid red;
+        gap: 50px;
+        /* border: 2px solid red; */
+    }
+    .buttonPage{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 16px;
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+        border: none;
     }
 
 }
 
+.buttonAng{
+
+}
+.buttonAng:disabled{
+    background-color: #ccc;
+    padding: 5px;
+    border-radius: 6px;
+    color: #ccc;
+    cursor: not-allowed;
+}
+.currentPageButton{
+    color: #ebe1e1;
+    background-color: red;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+.currentPageButton:hover {
+    background-color: rgb(255, 0, 0, 0.6);
+    transform: scale(1.3)
+}

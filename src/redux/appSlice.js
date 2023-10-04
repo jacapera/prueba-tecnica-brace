@@ -7,6 +7,7 @@ const initialState = {
   movies:[],
   copyMovies:[],
   years:[],
+  error:"",
 }
 
 export const getMovies = createAsyncThunk("app/getMovies", async() => {
@@ -18,9 +19,10 @@ export const getMovies = createAsyncThunk("app/getMovies", async() => {
       }
     });
     //console.log("redux", data.results)
-    return data.results;
+    return data;
   } catch (error) {
     console.log("ERROR REDUX getMovies: ", error);
+    return error.message;
   }
 });
 
@@ -32,7 +34,7 @@ const appSlice = createSlice({
     setYears: (state, action) => {
       const { movies } = action.payload;
       const yearsF = new Set();
-      const filteredYears = movies.map((movie) => {
+      const filteredYears = movies?.map((movie) => {
         const year = movie.releaseYear.year;
         if(!yearsF.has(year)){
           yearsF.add(year);
@@ -48,13 +50,29 @@ const appSlice = createSlice({
       const filteredMovies = movies.filter(item => item.releaseYear.year === year);
       console.log("filteredMovies: ", filteredMovies)
       state.copyMovies = filteredMovies;
+    },
+    filterByName: (state, action) => {
+      const { name, movies } = action.payload;
+      const filteredMovies = movies.filter(
+        movie => movie.originalTitleText.text.toLowerCase().includes(name.toLowerCase())
+      )
+      state.copyMovies = filteredMovies
     }
   },
   extraReducers: (builder) => {
     builder
     .addCase(getMovies.fulfilled, (state, action) => {
-      state.movies = action.payload;
-      state.copyMovies = action.payload;
+      //console.log("ACTION FULFILLED: ", action)
+      if(action.payload === "Network Error"){
+        state.error = action.payload;
+        return
+      }
+      state.movies = action.payload.results;
+      state.copyMovies = action.payload.results;
+      state.error = ""
+    })
+    .addCase(getMovies.rejected, (state, action) => {
+      console.log("ACTION REJECTED: ", action)
     })
   }
 })
@@ -62,8 +80,11 @@ const appSlice = createSlice({
 
 export default appSlice.reducer;
 export const {
-  setYears, setFilteredMovieByYear,
+  setYears,
+  setFilteredMovieByYear,
+  filterByName,
 } = appSlice.actions;
 export const selectMovies = (state) => state.app.movies;
 export const selectYears = (state) => state.app.years;
 export const selectCopyMovies = (state) => state.app.copyMovies;
+export const selectError = (state) => state.app.error;

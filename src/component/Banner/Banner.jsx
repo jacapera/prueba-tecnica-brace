@@ -48,7 +48,7 @@ const Banner = ({ slides }) => {
 
           <div className={`${style.playTrailer} `}>
             <div className={`${style.logoPlay}`}>
-              <img className='text-red-500' src={play} alt="play" />
+              <img className={`text-red-500 `} src={play} alt="play" />
             </div>
             <span className={`${style.span}`}>WATCH TRAILER</span>
           </div>
@@ -58,7 +58,7 @@ const Banner = ({ slides }) => {
           {
             slides.map((slide, index) => (
               <div key={index} >
-                <button className={`${style.buttonSlide}`} onClick={() => goToSlide(index)} ></button>
+                <button className={`${style.buttonSlide} ${currentIndex === index && 'bg-red-600'}`} onClick={() => goToSlide(index)} ></button>
               </div>
             ))
           }

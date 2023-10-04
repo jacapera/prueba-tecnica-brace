@@ -110,6 +110,7 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
+        max-width: 1440px;
         height: 100vh;
         padding: 10px;
         flex-direction: column;
@@ -117,7 +118,6 @@
         align-items: center;
         background-position: center;
         background-size: cover;
-        
     }
     .slice{
         display: flex;
@@ -221,7 +221,6 @@
     transform: scale(1.3);
 }
 .buttonSlide:hover{
-
     background-color: red;
     transform: scale(1.5);
 }

@@ -4,13 +4,27 @@
     gap: 8px;
     width: 250px;
     height: 500px;
-    border-radius: 40px;
     margin: 25px 0;
+    position: relative;
+}
+.containerCardMovie h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    width: 90px;
+    height: 30px;
+    text-align: center;
+    /* background-color: rgba(92, 90, 90, 0.5); */
+    padding: 8px;
+    position: absolute;
+    top: 5%;
+    left: 7%;
 }
 .imageCard{
     width: 250px;
     height: 433px;
-    border-radius: 30px;
+    border-radius: 20px;
     object-fit: cover;
 }
 .titleMovie{

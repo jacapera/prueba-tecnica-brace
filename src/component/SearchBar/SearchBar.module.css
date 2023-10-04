@@ -3,15 +3,16 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        height: 100px;
+        height: 250px;
         justify-content: center;
         align-items: center;
         margin: 10px 0;
         gap: 10px;
-        border: 2px solid green;
+        padding: 5px;
     }
     .buscar{
         display: flex;
+        justify-content: center;
         align-items: center;
         width: 100%;
     }
@@ -20,13 +21,13 @@
         justify-content: center;
         align-items: center;
         align-content: center;
-        width: 100%;
+        width: 270px;
         height: 30px;
         padding: 15px;
         border-radius: 7px;
         border: 1px solid black;
         position: relative;
-        left: 10px;
+        left: 3%;
     }
     .logoBuscar{
         display: flex;
@@ -53,40 +54,46 @@
         display: flex;
         flex-direction: column;
         width: 100%;
+        max-width: 1440px;
         height: 100px;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        margin: 50px 0;
-        gap: 30px;
+        align-content: center;
+        margin: 60px 0;
+        gap: 40px;
     }
     .buscar{
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
+        position: relative;
     }
     .inputName{
-        width: 50%;
+        width: 40rem;
         height: 40px;
         padding: 15px;
         border-radius: 7px;
         border: 1px solid black;
+        position: absolute;
     }
     .logoBuscar{
         display: flex;
         width: 30px;
         height: 30px;
         position: relative;
-        right: 35px;
+        left: 18rem;
         cursor: pointer;
     }
     .selectYear{
         display: flex;
+        justify-content: center;
+        align-items: center;
         width: 80px;
-        height: 40px;
+        height: 45px;
         padding: 7px;
         border: 1px solid black;
-        border-radius: 8px;
+        border-radius: 7px;
     }
 }
 

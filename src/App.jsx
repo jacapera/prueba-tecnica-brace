@@ -19,13 +19,23 @@ function App() {
   ]
 
   return (
-    <div>
+    <div className='
+      flex flex-col
+      content-center
+      xl:max-w-[1440px]
+    '>
       <header className='flex justify-center'>
         <NavBar />
         <Banner slides={slides}/>
       </header>
-      <main className='flex flex-col justify-center items-center'>
-        <header className='flex w-[90%]'>
+      <main className={`
+        flex flex-col justify-center items-center
+      `} >
+        <header className={`
+          flex
+          w-[320px]
+          md:w-[90%]
+        `}>
           <SearchBar />
         </header>
         <Movies />
