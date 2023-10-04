@@ -6,6 +6,10 @@
     height: 500px;
     margin: 25px 0;
     position: relative;
+    transition: 800ms;
+}
+.containerCardMovie:hover{
+    transform: scale(1.1);
 }
 .containerCardMovie h1{
     display: flex;

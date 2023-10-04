@@ -90,9 +90,10 @@ const SearchBar = () => {
 
       <div className={`
         flex flex-col gap-[5px]
-        items-center
-        md:flex-row md:w-[40rem]
-        md:justify-between
+        items-center flex-nowrap
+
+        sm:flex-row sm:w-[40rem]
+        sm:justify-between sm:flex-nowrap
       `}>
           <select
             className={`${style.selectYear} font-bold`}

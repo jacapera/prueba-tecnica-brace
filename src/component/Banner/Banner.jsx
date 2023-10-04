@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './Banner.module.css'
-import anguloIzq from '../../assets/angulo-izquierdo.png'
-import anguloDer from '../../assets/angulo-derecho.png'
-import play from '../../assets/klipartz.com.png'
 import { Link } from 'react-router-dom'
+import icons from '../../utils/icons'
 
 const Banner = ({ slides }) => {
 
@@ -25,21 +23,31 @@ const Banner = ({ slides }) => {
     setCurrentIndex(index);
   }
 
+  // para cambiar slide automaticamente
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      goToNext();
+    }, 4000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [currentIndex]);
+
   return (
     <div
     style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),url('${slides[currentIndex].url}')` }}
     className={`${style.containerBanner} `}
-
     >
       <div className={`${style.slice} `}>
         <img
           className={`${style.iconAngIzq}`}
-          src={anguloIzq} alt={"icon"}
+          src={icons.anguloIzq} alt={"icon"}
           onClick={goToPrevious}
         />
         <img
           className={`${style.iconAngDer}`}
-          src={anguloDer} alt={"icon"}
+          src={icons.anguloDer} alt={"icon"}
           onClick={goToNext}
         />
       </div>
@@ -49,7 +57,7 @@ const Banner = ({ slides }) => {
           <Link to={`/trailer/${currentIndex}`}>
             <div className={`${style.playTrailer} `} >
               <div className={`${style.logoPlay}`}>
-                <img className={`text-red-500 `} src={play} alt="play" />
+                <img className={`text-red-500 `} src={icons.play} alt="play" />
               </div>
               <span className={`${style.span}`}>WATCH TRAILER</span>
             </div>
