@@ -1,4 +1,4 @@
-@media screen and (min-width:150px) and (max-width:768px){
+@media screen and (min-width:150px) and (max-width:640px){
     .containerSearchBar{
         display: flex;
         flex-direction: column;
@@ -10,18 +10,12 @@
         gap: 10px;
         padding: 5px;
     }
-    .buscar{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
     .inputName{
         display: flex;
         justify-content: center;
         align-items: center;
         align-content: center;
-        width: 270px;
+        width: 500px;
         height: 30px;
         padding: 15px;
         border-radius: 7px;
@@ -48,14 +42,28 @@
         border-radius: 8px;
     }
 }
+@media screen and (min-width: 641px){
+    .containerSearchBar{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        align-items: center;
+        height: 150px;
+        gap: 20px;
+    }
+    .inputName{
+        width: 90%;
+    }
+}
 
-@media screen and (min-width:769px){
+@media screen and (min-width:768px){
     .containerSearchBar{
         display: flex;
         flex-direction: column;
         width: 100%;
         max-width: 1440px;
-        height: 100px;
+        height: 150px;
         justify-content: center;
         align-items: center;
         align-content: center;
@@ -70,7 +78,7 @@
         position: relative;
     }
     .inputName{
-        width: 40rem;
+        width: 0rem;
         height: 40px;
         padding: 15px;
         border-radius: 7px;
@@ -82,7 +90,7 @@
         width: 30px;
         height: 30px;
         position: relative;
-        left: 18rem;
+        right: 0rem;
         cursor: pointer;
     }
     .selectYear{

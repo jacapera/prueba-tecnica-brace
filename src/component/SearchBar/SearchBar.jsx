@@ -6,13 +6,18 @@ import filtrar from '../../assets/filtrar.png'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   filterByName,
+  filterByTypeTitle,
   orderByNameAsc,
   orderByNameDes,
   selectCopyMovies,
+  selectIndex,
   selectMovies,
+  selectTitleType,
   selectYears,
   setCopyMovies,
   setFilteredMovieByYear,
+  setIndex,
+  setTitleType,
   setYears
 } from '../../redux/appSlice'
 
@@ -20,10 +25,14 @@ const SearchBar = () => {
 
   const [name, setName] = useState("");
   const [order, setOrder] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [flag, setFlag] = useState(false);
 
   const movies = useSelector(selectMovies);
   const copyMovies = useSelector(selectCopyMovies);
   const years = useSelector(selectYears);
+  const titleType = useSelector(selectTitleType);
+  const index = useSelector(selectIndex);
 
   const dispatch = useDispatch();
 
@@ -33,7 +42,7 @@ const SearchBar = () => {
     const year = parseInt(value)
     dispatch(setFilteredMovieByYear({year, movies}))
   }
-  
+
   const handleName = (event) => {
     const { value } = event.target;
     setName(value);
@@ -60,20 +69,37 @@ const SearchBar = () => {
   const clear = () => {
     setName("")
     dispatch(setCopyMovies(movies))
+    dispatch(setIndex(0))
   }
+
+  const filteredTitleType = () => {
+    if(index < titleType.length){
+      dispatch(setIndex(index + 1))
+      console.log("index +:  ",currentIndex )
+      dispatch(filterByTypeTitle({type: titleType[index], movies}))
+    }
+    if(titleType.length - index === 1){
+      dispatch(setIndex(0));
+      dispatch(filterByTypeTitle({type: titleType[index], movies}))
+      console.log("son iguales", index)
+    }
+  };
 
   useEffect(() => {
     if(years?.length === 0){
       dispatch(setYears({movies}))
+    }
+    if(titleType?.length === 0){
+      dispatch(setTitleType({movies}))
     }
   },[movies])
 
   return (
     <div className={`${style.containerSearchBar} `}>
 
-      <div className={`${style.buscar} `}>
+      <div className={`flex items-center justify-center w-[90%] sm:w-[90%] md:w-[100vh] `}>
         <input
-          className={`${style.inputName}`}
+          className={`flex w-[100%] h-[40px] border-[1px] border-black rounded-md p-[8px] md:w-[100vh]`}
           type='text'
           placeholder='What do you want to watch?'
           name='name'
@@ -81,7 +107,7 @@ const SearchBar = () => {
           onChange={handleName}
         />
         <div
-          className={`${style.logoBuscar}`}
+          className={`relative right-[5vh] w-[25px] ${style.logoBuscar}`}
           onClick={handleFindByName}
         >
           <img src={buscar} />
@@ -90,13 +116,13 @@ const SearchBar = () => {
 
       <div className={`
         flex flex-col gap-[5px]
-        items-center flex-nowrap
+        items-center
 
-        sm:flex-row sm:w-[40rem]
-        sm:justify-between sm:flex-nowrap
+        sm:flex-row sm:w-[100%]
+        sm:justify-between md:w-[97vh] 
       `}>
           <select
-            className={`${style.selectYear} font-bold`}
+            className={`font-bold border-[1px] p-[7px] border-black h-[42px] rounded-md ${style.selectYear} `}
             value={"default"}
             onChange={handleChange}
           >
@@ -131,6 +157,7 @@ const SearchBar = () => {
             `}>
               <span className={`font-bold`}>PELICULAS</span>
               <img
+                onClick={filteredTitleType}
                 src={filtrar} alt="icon buscar"
                 className={`flex w-[20px] h-[20px] cursor-pointer `}
               />

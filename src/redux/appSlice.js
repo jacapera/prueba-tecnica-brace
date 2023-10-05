@@ -9,8 +9,10 @@ const initialState = {
   movies:[],
   copyMovies:[],
   years:[],
+  titleType:[],
   actors:[],
   error:"",
+  index:0,
 }
 
 export const getMovies = createAsyncThunk("app/getMovies", async() => {
@@ -63,6 +65,9 @@ const appSlice = createSlice({
   name:"app",
   initialState,
   reducers: {
+    setIndex: (state, action) => {
+      state.index = action.payload;
+    },
     setError: (state, action) => {
       state.error = action.payload;
     },
@@ -74,14 +79,32 @@ const appSlice = createSlice({
       const yearsF = new Set();
       const filteredYears = movies?.map((movie) => {
         const year = movie.releaseYear?.year;
+        //console.log(typeof(year))
         if(!yearsF.has(year)){
           yearsF.add(year);
           return year;
         }
       return null;
     })
-    const arrayYears =  Array.from(yearsF);
+    const auxArray =  Array.from(yearsF);
+    const arrayYears = auxArray.sort((a, b) => b - a)
     state.years = arrayYears;
+    },
+    setTitleType: (state, action) => {
+      const { movies } = action.payload;
+      const titlesSet = new Set();
+      const filteredTitlesType = movies?.map((movie) => {
+        const title = movie.titleType?.text.toUpperCase();
+        //console.log(typeof(title))
+        if(!titlesSet.has(title)){
+          titlesSet.add(title);
+          return title;
+        }
+      return null;
+    })
+    const auxArray =  Array.from(titlesSet);
+    const arrayTitlesType = auxArray.sort((a, b) => b - a)
+    state.titleType= arrayTitlesType;
     },
     setFilteredMovieByYear: (state, action) => {
       const { year, movies } = action.payload;
@@ -111,6 +134,13 @@ const appSlice = createSlice({
           : b.originalTitleText.text.toLowerCase() > a.originalTitleText.text.toLowerCase() ? 1 : 0
       })
       state.copyMovies = orderMovie
+    },
+    filterByTypeTitle:(state, action) => {
+      const { type, movies } = action.payload;
+      console.log("type", type)
+      const filtered = movies.filter(item => item.titleType.text.toUpperCase() === type)
+      //console.log("mirando: ", filtered)
+      state.copyMovies = filtered;
     },
   },
   extraReducers: (builder) => {
@@ -143,19 +173,24 @@ const appSlice = createSlice({
 
 export default appSlice.reducer;
 export const {
+  setIndex,
   setYears,
   setError,
   setFilteredMovieByYear,
+  filterByTypeTitle,
   filterByName,
   orderByNameAsc,
   orderByNameDes,
   setCopyMovies,
+  setTitleType,
 } = appSlice.actions;
 export const selectMovies = (state) => state.app.movies;
 export const selectYears = (state) => state.app.years;
 export const selectCopyMovies = (state) => state.app.copyMovies;
 export const selectError = (state) => state.app.error;
 export const selectActors = (state) => state.app.actors;
+export const selectTitleType = (state) => state.app.titleType;
+export const selectIndex = (state) => state.app.index;
 
 
 

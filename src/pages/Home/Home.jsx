@@ -29,8 +29,8 @@ const Home = () => {
       `}>
         <header className={`
           flex
-          w-[320px]
-          md:w-[90%]
+          w-[420px]
+          sm:w-[90%]
         `}>
           <SearchBar />
         </header>

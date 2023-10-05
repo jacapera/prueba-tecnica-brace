@@ -10,6 +10,8 @@ function App() {
     <div className='
       flex flex-col
       w-full h-full
+      justify-content
+      items-center
       content-center
     '>
 

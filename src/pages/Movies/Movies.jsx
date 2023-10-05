@@ -56,8 +56,10 @@ const Movies = () => {
     });
   }
 
+  //const shortening = ()
+
   useEffect(() => {
-    setCurrentPage(0);
+    //setCurrentPage(0);
     splitPages(copyMovies, 12);
   }, [copyMovies])
 
@@ -65,7 +67,7 @@ const Movies = () => {
     if(movies?.length === 0){
       dispatch(getMovies())
     }
-    console.log(movies)
+    //console.log(movies)
   }, [movies])
 
   useEffect(() => {
@@ -93,7 +95,7 @@ const Movies = () => {
     <>
       { error === "Network Error" ?
         (<NotFound />):(
-          <div >
+          <div className='flex flex-col justify-center items-center' >
             <div className={`${style.containerMovie}`}>
               {
                 filteredMovies?.length > 0 && filteredMovies?.map((movie, index) => (
@@ -103,29 +105,32 @@ const Movies = () => {
                     image={movie.primaryImage?.url}
                     title={movie.originalTitleText?.text}
                     releaseYear={movie.releaseYear?.year}
+                    type={movie.titleType.text.toUpperCase()}
                   />
                 ))
               }
             </div>
-            <div className={`flex gap-[5px] justify-center items-center`}>
+            <div className={`flex gap-[3px] w-[350px] justify-center items-center`}>
               <button onClick={prevPage} disabled={buttonPrevDisable} className={`${style.buttonAng}`}>
-                <img className={`border-[1px] w-[30px]`} src={anguloIzq} alt="icon angulo izquierdo" />
+                <img className={`border-[1px] w-[35px] sm:w-[45px]`} src={anguloIzq} alt="icon angulo izquierdo" />
               </button>
-              {
-                pagesNumbers?.map((num, index) => (
-                  <button
-                    className={`${style.buttonPage} ${currentPage === index * 12 && style.currentPageButton}`}
-                    key={index} value={num}
-                    onClick={pageSelected}
-                  >{num}</button>
-                ))
-              }
+              <div className={`flex h-[40px]  sm:max-w-[300] sm:h-[50px] md:max-w-[400px] lg:max-w-[500px] overflow-x-auto ${style.customScrollbarHorizontal}`}>
+                {
+                  pagesNumbers?.map((num, index) => (
+                    <button
+                      className={`${style.buttonPage} ${currentPage === index * 12 && style.currentPageButton}`}
+                      key={index} value={num}
+                      onClick={pageSelected}
+                    >{num}</button>
+                  ))
+                }
+              </div>
               <button onClick={nextPage} disabled={buttonNextDisable} className={`${style.buttonAng}`}>
-                <img className={`border-[1px] w-[30px]`} src={anguloDer} alt="icon angulo derecho" />
+                <img className={`border-[1px] w-[35px] sm:w-[45px]`} src={anguloDer} alt="icon angulo derecho" />
               </button>
             </div>
-              <div className={`relative left-[90%] w-[30px] border-[1px] `} onClick={irHaciaArriba}>
-                <img src={arriba} alt="icon agular hacia arriba" className={`w-[30px]`}/>
+              <div className={`relative top-[3vh] left-[30%] w-[30px] sm:w-[40px] border-[1px] `} onClick={irHaciaArriba}>
+                <img src={arriba} alt="icon agular hacia arriba" className={`w-[70px]`}/>
               </div>
           </div>
         )
