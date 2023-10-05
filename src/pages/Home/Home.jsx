@@ -14,7 +14,7 @@ const Home = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if(actors.length === 0 || !actors){
+    if(actors?.length === 0 || !actors){
       dispatch(getActors())
     }
   }, [actors])
