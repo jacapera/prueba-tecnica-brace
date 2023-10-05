@@ -18,7 +18,7 @@ const DetailMovie = () => {
   //console.log("actorsFilter: ", actorsFilter)
 
   const filteredActors = () => {
-    const aux = actors.filter(actor => actor.knownForTitles?.includes(id));
+    const aux = actors?.filter(actor => actor.knownForTitles?.includes(id));
     //console.log("aux:", aux)
     setActorsFilter(aux);
   }
