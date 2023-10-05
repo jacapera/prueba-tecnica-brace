@@ -119,7 +119,7 @@ const SearchBar = () => {
         items-center
 
         sm:flex-row sm:w-[100%]
-        sm:justify-between md:w-[97vh] 
+        sm:justify-between md:w-[97vh]
       `}>
           <select
             className={`font-bold border-[1px] p-[7px] border-black h-[42px] rounded-md ${style.selectYear} `}
