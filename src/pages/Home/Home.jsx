@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 const Home = () => {
 
   const actors = useSelector(selectActors);
+  console.log("actors: ", actors)
 
   const dispatch = useDispatch();
   useEffect(() => {
