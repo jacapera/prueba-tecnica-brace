@@ -169,7 +169,7 @@ const appSlice = createSlice({
       console.log("ACTION REJECTED: ", action)
     })
     .addCase(getActors.fulfilled, (state, action) => {
-      const auxActors = action.payload.results.map(item => {
+      const auxActors = action.payload.results?.map(item => {
         return{
           ...item,
           knownForTitles: item.knownForTitles.split(",")
