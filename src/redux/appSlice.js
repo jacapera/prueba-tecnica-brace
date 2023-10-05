@@ -55,6 +55,7 @@ export const getActors = createAsyncThunk("app/getActors", async() => {
         'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
       }
     });
+    console.log("data redux getActors: ", data)
     return data;
   } catch (error) {
     console.log("ERROR REDUX getActors: ", error);
@@ -166,7 +167,7 @@ const appSlice = createSlice({
       state.error = ""
     })
     .addCase(getMovies.rejected, (state, action) => {
-      console.log("ACTION REJECTED: ", action)
+      console.log("ACTION REJECTED getMovies: ", action)
     })
     .addCase(getActors.fulfilled, (state, action) => {
       const auxActors = action.payload.results?.map(item => {
@@ -176,6 +177,9 @@ const appSlice = createSlice({
         }
       })
       state.actors = auxActors;
+    })
+    .addCase(getActors.rejected, (state, action) => {
+      console.log("ACTION REJECTED getActors: ", action)
     })
   }
 })
