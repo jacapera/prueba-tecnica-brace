@@ -105,7 +105,7 @@ const Movies = () => {
                     image={movie.primaryImage?.url}
                     title={movie.originalTitleText?.text}
                     releaseYear={movie.releaseYear?.year}
-                    type={movie.titleType.text.toUpperCase()}
+                    type={movie.titleType?.text.toUpperCase()}
                   />
                 ))
               }

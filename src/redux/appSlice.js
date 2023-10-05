@@ -172,7 +172,7 @@ const appSlice = createSlice({
       const auxActors = action.payload.results?.map(item => {
         return{
           ...item,
-          knownForTitles: item.knownForTitles.split(",")
+          knownForTitles: item.knownForTitles?.split(",")
         }
       })
       state.actors = auxActors;
