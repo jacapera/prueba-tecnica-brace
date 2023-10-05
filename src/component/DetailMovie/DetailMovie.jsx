@@ -15,11 +15,11 @@ const DetailMovie = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log("actorsFilter: ", actorsFilter)
+  //console.log("actorsFilter: ", actorsFilter)
 
   const filteredActors = () => {
     const aux = actors.filter(actor => actor.knownForTitles.includes(id));
-    console.log("aux:", aux)
+    //console.log("aux:", aux)
     setActorsFilter(aux);
   }
 

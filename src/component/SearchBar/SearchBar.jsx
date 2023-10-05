@@ -10,35 +10,39 @@ import {
   orderByNameAsc,
   orderByNameDes,
   selectCopyMovies,
+  selectError,
   selectIndex,
+  selectIsOpenModal,
   selectMovies,
   selectTitleType,
   selectYears,
   setCopyMovies,
   setFilteredMovieByYear,
   setIndex,
+  setIsModalOpen,
   setTitleType,
   setYears
 } from '../../redux/appSlice'
+import Modal from '../Modal/Modal'
 
 const SearchBar = () => {
 
   const [name, setName] = useState("");
   const [order, setOrder] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [flag, setFlag] = useState(false);
 
   const movies = useSelector(selectMovies);
   const copyMovies = useSelector(selectCopyMovies);
   const years = useSelector(selectYears);
   const titleType = useSelector(selectTitleType);
   const index = useSelector(selectIndex);
+  const error = useSelector(selectError);
+  const isModalOpen = useSelector(selectIsOpenModal);
 
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
     const { value } = event.target;
-    console.log(value)
+    //console.log(value)
     const year = parseInt(value)
     dispatch(setFilteredMovieByYear({year, movies}))
   }
@@ -49,15 +53,16 @@ const SearchBar = () => {
   }
 
   const handleFindByName = (event) => {
-    if(copyMovies.length < movies.length){
-      dispatch(filterByName({name, movies:copyMovies}))
-    } else {
-      dispatch(filterByName({name, movies}))
-    }
+    dispatch(filterByName({name, movies}))
+    // if(copyMovies.length < movies.length){
+    //   dispatch(filterByName({name, movies:copyMovies}))
+    // } else {
+    //   dispatch(filterByName({name, movies}))
+    // }
   }
 
   const orderMovie = () => {
-    console.log(order)
+    //console.log(order)
     if(order){
       setOrder(!order)
       return dispatch(orderByNameAsc({movies: copyMovies}))
@@ -75,13 +80,13 @@ const SearchBar = () => {
   const filteredTitleType = () => {
     if(index < titleType.length){
       dispatch(setIndex(index + 1))
-      console.log("index +:  ",currentIndex )
+      //console.log("index +:  ",currentIndex )
       dispatch(filterByTypeTitle({type: titleType[index], movies}))
     }
     if(titleType.length - index === 1){
       dispatch(setIndex(0));
       dispatch(filterByTypeTitle({type: titleType[index], movies}))
-      console.log("son iguales", index)
+      //console.log("son iguales", index)
     }
   };
 
@@ -93,6 +98,12 @@ const SearchBar = () => {
       dispatch(setTitleType({movies}))
     }
   },[movies])
+
+  useEffect(() => {
+    if(error !== ""){
+      dispatch(setIsModalOpen(true))
+    }
+  }, [dispatch])
 
   return (
     <div className={`${style.containerSearchBar} `}>
@@ -175,6 +186,9 @@ const SearchBar = () => {
             `}
           >LIMPIAR</button>
       </div>
+      {
+        isModalOpen && <Modal message={error} />
+      }
 
     </div>
   )

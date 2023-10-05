@@ -13,6 +13,7 @@ const initialState = {
   actors:[],
   error:"",
   index:0,
+  isModalOpen:false,
 }
 
 export const getMovies = createAsyncThunk("app/getMovies", async() => {
@@ -65,6 +66,9 @@ const appSlice = createSlice({
   name:"app",
   initialState,
   reducers: {
+    setIsModalOpen: (state, action) => {
+      state.isModalOpen = action.payload;
+    },
     setIndex: (state, action) => {
       state.index = action.payload;
     },
@@ -109,7 +113,7 @@ const appSlice = createSlice({
     setFilteredMovieByYear: (state, action) => {
       const { year, movies } = action.payload;
       const filteredMovies = movies.filter(item => item.releaseYear?.year === year);
-      console.log("filteredMovies: ", filteredMovies)
+      //console.log("filteredMovies: ", filteredMovies)
       state.copyMovies = filteredMovies;
     },
     filterByName: (state, action) => {
@@ -117,7 +121,20 @@ const appSlice = createSlice({
       const filteredMovies = movies.filter(
         movie => movie.originalTitleText.text.toLowerCase().includes(name.toLowerCase())
       )
+      //console.log(filteredMovies)
+      if(filteredMovies.length === 0){
+        state.error ="No se encontro ningun resultado con este nombre";
+        state.isModalOpen = true;
+        return
+      }
       state.copyMovies = filteredMovies
+    },
+    filterByTypeTitle:(state, action) => {
+      const { type, movies } = action.payload;
+      //console.log("type", type)
+      const filtered = movies.filter(item => item.titleType.text.toUpperCase() === type)
+      //console.log("mirando: ", filtered)
+      state.copyMovies = filtered;
     },
     orderByNameAsc:(state, action) => {
       const { movies } = action.payload;
@@ -134,13 +151,6 @@ const appSlice = createSlice({
           : b.originalTitleText.text.toLowerCase() > a.originalTitleText.text.toLowerCase() ? 1 : 0
       })
       state.copyMovies = orderMovie
-    },
-    filterByTypeTitle:(state, action) => {
-      const { type, movies } = action.payload;
-      console.log("type", type)
-      const filtered = movies.filter(item => item.titleType.text.toUpperCase() === type)
-      //console.log("mirando: ", filtered)
-      state.copyMovies = filtered;
     },
   },
   extraReducers: (builder) => {
@@ -176,13 +186,14 @@ export const {
   setIndex,
   setYears,
   setError,
+  setIsModalOpen,
+  setTitleType,
   setFilteredMovieByYear,
   filterByTypeTitle,
   filterByName,
   orderByNameAsc,
   orderByNameDes,
   setCopyMovies,
-  setTitleType,
 } = appSlice.actions;
 export const selectMovies = (state) => state.app.movies;
 export const selectYears = (state) => state.app.years;
@@ -191,6 +202,7 @@ export const selectError = (state) => state.app.error;
 export const selectActors = (state) => state.app.actors;
 export const selectTitleType = (state) => state.app.titleType;
 export const selectIndex = (state) => state.app.index;
+export const selectIsOpenModal = (state) => state.app.isModalOpen;
 
 
 
