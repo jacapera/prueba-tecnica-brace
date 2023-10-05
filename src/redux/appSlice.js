@@ -119,7 +119,7 @@ const appSlice = createSlice({
     filterByName: (state, action) => {
       const { name, movies } = action.payload;
       const filteredMovies = movies.filter(
-        movie => movie.originalTitleText.text.toLowerCase().includes(name.toLowerCase())
+        movie => movie.originalTitleText?.text.toLowerCase().includes(name.toLowerCase())
       )
       //console.log(filteredMovies)
       if(filteredMovies.length === 0){
@@ -132,23 +132,23 @@ const appSlice = createSlice({
     filterByTypeTitle:(state, action) => {
       const { type, movies } = action.payload;
       //console.log("type", type)
-      const filtered = movies.filter(item => item.titleType.text.toUpperCase() === type)
+      const filtered = movies.filter(item => item.titleType?.text.toUpperCase() === type)
       //console.log("mirando: ", filtered)
       state.copyMovies = filtered;
     },
     orderByNameAsc:(state, action) => {
       const { movies } = action.payload;
       const orderMovie = [...movies].sort((a, b) => {
-        return a.originalTitleText.text.toLowerCase() < b.originalTitleText.text.toLowerCase() ? -1
-          : a.originalTitleText.text.toLowerCase() > b.originalTitleText.text.toLowerCase() ? 1 : 0
+        return a.originalTitleText?.text.toLowerCase() < b.originalTitleText?.text.toLowerCase() ? -1
+          : a.originalTitleText?.text.toLowerCase() > b.originalTitleText?.text.toLowerCase() ? 1 : 0
       })
       state.copyMovies = orderMovie
     },
     orderByNameDes:(state, action) => {
       const { movies } = action.payload;
       const orderMovie = [...movies].sort((a, b) => {
-        return b.originalTitleText.text.toLowerCase() < a.originalTitleText.text.toLowerCase() ? -1
-          : b.originalTitleText.text.toLowerCase() > a.originalTitleText.text.toLowerCase() ? 1 : 0
+        return b.originalTitleText?.text.toLowerCase() < a.originalTitleText?.text.toLowerCase() ? -1
+          : b.originalTitleText?.text.toLowerCase() > a.originalTitleText?.text.toLowerCase() ? 1 : 0
       })
       state.copyMovies = orderMovie
     },
