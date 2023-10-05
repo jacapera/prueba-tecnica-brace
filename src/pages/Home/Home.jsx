@@ -5,15 +5,19 @@ import SearchBar from '../../component/SearchBar/SearchBar'
 import Movies from '../Movies/Movies'
 import Footer from '../../component/Footer/Footer'
 import slides from '../../utils/slides'
-import { getActors } from '../../redux/appSlice'
-import { useDispatch } from 'react-redux'
+import { getActors, selectActors } from '../../redux/appSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Home = () => {
 
+  const actors = useSelector(selectActors);
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getActors())
-  }, [dispatch])
+    if(actors.length === 0 || !actors){
+      dispatch(getActors())
+    }
+  }, [actors])
 
   return (
     <div className='
