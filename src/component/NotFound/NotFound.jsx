@@ -1,10 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { selectError } from '../../redux/appSlice'
+import { selectError, selectStatus } from '../../redux/appSlice'
 
 const NotFound = () => {
 
-  const error = useSelector(selectError)
+  const error = useSelector(selectError);
+  const status = useSelector(selectStatus);
 
   return (
     <div className={`
@@ -23,12 +24,12 @@ const NotFound = () => {
       `}>404 | Not Found</h1>
       <div>
         {
-          error !== "" &&
+          (error !== "" || status === 429) &&
             <h1 className={`
-            text-4xl
+            text-2xl
             text-white
             font-bold
-            md:text-6xl
+            md:text-2xl
             `}>{error}</h1>
         }
       </div>

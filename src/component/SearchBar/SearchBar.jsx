@@ -14,6 +14,7 @@ import {
   selectIndex,
   selectIsOpenModal,
   selectMovies,
+  selectStatus,
   selectTitleType,
   selectYears,
   setCopyMovies,
@@ -37,6 +38,7 @@ const SearchBar = () => {
   const index = useSelector(selectIndex);
   const error = useSelector(selectError);
   const isModalOpen = useSelector(selectIsOpenModal);
+  const status = useSelector(selectStatus);
 
   const dispatch = useDispatch();
 
@@ -100,6 +102,9 @@ const SearchBar = () => {
   },[movies])
 
   useEffect(() => {
+    if(status === 429){
+      return
+    }
     if(error !== ""){
       dispatch(setIsModalOpen(true))
     }

@@ -14,21 +14,34 @@ const initialState = {
   error:"",
   index:0,
   isModalOpen:false,
+  status:null,
+  isLoading:false,
 }
 
 export const getMovies = createAsyncThunk("app/getMovies", async() => {
   try {
-    const {data} = await axios.get(`${urlApi}?limit=50`, {
-      headers: {
-        'X-RapidAPI-Key': '094ef17c14msh3c9f12c24492db1p193f63jsne263e5d9fadb',
-        'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-      }
-    });
+    let allMovies = [];
+    for(let i = 1; i < 50; i++){
+      const {data} = await axios.get(`${urlApi}?limit=50&page=${i}`, {
+        headers: {
+          'X-RapidAPI-Key': '094ef17c14msh3c9f12c24492db1p193f63jsne263e5d9fadb',
+          'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+        }
+      });
+      //const pageMovies = data.results?.map(movie => {return movie})
+      allMovies = [...allMovies, ...data.results]
+    }
+    return allMovies;
     //console.log("redux", data.results)
-    return data;
   } catch (error) {
     console.log("ERROR REDUX getMovies: ", error);
-    return error.message;
+    if(error.response.status === 429){
+      return {
+        message: error.response.data?.message,
+        status: error.response.status
+      };
+    }
+    return error.response.data
   }
 });
 
@@ -44,21 +57,42 @@ export const getMovieById = createAsyncThunk("app/getMovieById", async({id}) => 
     return data
   } catch (error) {
     console.log("ERROR REDUX getMovieById: ", error);
+    if(error.response.status === 429){
+      return {
+        message: error.response.data?.message,
+        status: error.response.status
+      };
+    }
+    return error.response.data
   }
 });
 
 export const getActors = createAsyncThunk("app/getActors", async() => {
   try {
-    const { data } = await axios.get(`${urlApiActors}?limit=50`, {
-      headers: {
-        'X-RapidAPI-Key': '094ef17c14msh3c9f12c24492db1p193f63jsne263e5d9fadb',
-        'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-      }
-    });
-    console.log("data redux getActors: ", data)
-    return data;
+    let allActors = [];
+    for(let i = 1; i < 50; i++){
+      let { data } = await axios.get(`${urlApiActors}?limit=50&page=${i}`, {
+        headers: {
+          'X-RapidAPI-Key': '094ef17c14msh3c9f12c24492db1p193f63jsne263e5d9fadb',
+          'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+        }
+      });
+      // const pageActors = data.results?.map(actor => {
+      //   return actor
+      // })
+      allActors = [...allActors, ...data.results];
+    }
+    console.log("data redux getActors: ", allActors)
+    return allActors;
   } catch (error) {
     console.log("ERROR REDUX getActors: ", error);
+    if(error.response.status === 429){
+      return {
+        message: error.response.data?.message,
+        status: error.response.status
+      };
+    }
+    return error.response.data
   }
 });
 
@@ -156,27 +190,54 @@ const appSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+    .addCase(getMovies.pending, (state, action) => {
+      state.isLoading = true;
+    })
     .addCase(getMovies.fulfilled, (state, action) => {
-      //console.log("ACTION FULFILLED: ", action)
+      console.log("ACTION FULFILLED getMovies: ", action.payload)
       if(action.payload === "Network Error"){
         state.error = action.payload;
         return
       }
-      state.movies = [...movies2, ...action.payload.results];
-      state.copyMovies = [...movies2, ...action.payload.results];
-      state.error = ""
+      if(Array.isArray(action.payload)){
+        state.movies = action.payload;
+        state.copyMovies = action.payload;
+        state.error = "";
+        state.isLoading = false;
+        state.status = null;
+        return
+      } else {
+        state.error = action.payload.message
+        state.status = action.payload.status
+      }
+      //state.movies = [...movies2, ...action.payload?.results];
+      //state.copyMovies = [...movies2, ...action.payload?.results];
+      //state.error = ""
     })
     .addCase(getMovies.rejected, (state, action) => {
       console.log("ACTION REJECTED getMovies: ", action)
     })
+    .addCase(getActors.pending, (state, action) => {
+      state.isLoading = true;
+    })
     .addCase(getActors.fulfilled, (state, action) => {
-      const auxActors = action.payload.results?.map(item => {
-        return{
-          ...item,
-          knownForTitles: item.knownForTitles?.split(",")
-        }
-      })
-      state.actors = auxActors;
+      console.log(action)
+      if(Array.isArray(action.payload)){
+        const auxActors = action.payload?.map(item => {
+          return{
+            ...item,
+            knownForTitles: item.knownForTitles?.split(",")
+          }
+        })
+        state.actors = auxActors;
+        state.error = "";
+        state.isLoading = false;
+        state.status = null;
+        return;
+      } else {
+        state.error = action.payload.message
+        state.status = action.payload.status
+      }
     })
     .addCase(getActors.rejected, (state, action) => {
       console.log("ACTION REJECTED getActors: ", action)
@@ -207,6 +268,8 @@ export const selectActors = (state) => state.app.actors;
 export const selectTitleType = (state) => state.app.titleType;
 export const selectIndex = (state) => state.app.index;
 export const selectIsOpenModal = (state) => state.app.isModalOpen;
+export const selectStatus = (state) => state.app.status;
+export const selectIsLoading = (state) => state.app.isLoading;
 
 
 

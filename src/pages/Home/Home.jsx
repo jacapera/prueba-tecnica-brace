@@ -5,45 +5,67 @@ import SearchBar from '../../component/SearchBar/SearchBar'
 import Movies from '../Movies/Movies'
 import Footer from '../../component/Footer/Footer'
 import slides from '../../utils/slides'
-import { getActors, selectActors } from '../../redux/appSlice'
+import { getActors, selectActors, selectError, selectIsOpenModal, selectStatus, setIsModalOpen } from '../../redux/appSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import Modal from '../../component/Modal/Modal'
 
 const Home = () => {
 
   const actors = useSelector(selectActors);
+  const error = useSelector(selectError);
+  const isModalOpen = useSelector(selectIsOpenModal);
+  const status = useSelector(selectStatus);
   console.log("actors: ", actors)
 
   const dispatch = useDispatch();
+  // useEffect(() => {
+  //   if(status === 429){
+  //     return
+  //   }
+  //   if(actors?.length === 0 || !actors){
+  //     dispatch(getActors())
+  //   }
+  // }, [actors])
+
   useEffect(() => {
-    if(actors?.length === 0 || !actors){
-      dispatch(getActors())
+    if(status === 429){
+      return
     }
-  }, [actors])
+    if(error !== ""){
+      dispatch(setIsModalOpen(true))
+    }
+  }, [error])
 
   return (
-    <div className='
-      flex flex-col
-      content-center
-      '>
-      <header className='flex justify-center'>
-        <NavBar />
-        <Banner slides={slides}/>
-      </header>
-      <main className={`
-        flex flex-col justify-center items-center
-      `}>
-        <header className={`
-          flex
-          w-[420px]
-          sm:w-[90%]
-        `}>
-          <SearchBar />
-        </header>
-        <Movies />
-      </main>
-      <footer>
-        <Footer />
-      </footer>
+    <div>
+      {
+        isModalOpen ? <Modal message={error} /> :
+          <div className='
+          flex flex-col
+          content-center
+          w-[100%]
+          '>
+            <header className='flex justify-center'>
+              <NavBar />
+              <Banner slides={slides}/>
+            </header>
+            <main className={`
+              flex flex-col justify-center items-center
+            `}>
+              <header className={`
+                flex
+                w-[420px]
+                sm:w-[90%]
+              `}>
+                <SearchBar />
+              </header>
+              <Movies />
+            </main>
+            <footer>
+              <Footer />
+            </footer>
+          </div>
+      }
     </div>
   )
 }

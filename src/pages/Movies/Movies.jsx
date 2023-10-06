@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import CardMovie from '../../component/CardMovie/CardMovie'
-import style from './Movies.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { getMovies, selectCopyMovies, selectError, selectMovies } from '../../redux/appSlice'
+import CardMovie from '../../component/CardMovie/CardMovie'
 import NotFound from '../../component/NotFound/NotFound'
-import anguloIzq from '../../assets/angulo-izquierdo.png'
-import anguloDer from '../../assets/angulo-derecho.png'
-import arriba from '../../assets/angulo-hacia-arriba.png'
+import icons from '../../utils/icons';
+import style from './Movies.module.css'
+import {
+  getMovies,
+  selectCopyMovies,
+  selectError,
+  selectIsLoading,
+  selectMovies,
+  selectStatus,
+} from '../../redux/appSlice'
+import Loading from '../../component/Loading/Loading';
 
 const Movies = () => {
 
@@ -19,6 +25,9 @@ const Movies = () => {
   const movies = useSelector(selectMovies);
   const copyMovies = useSelector(selectCopyMovies);
   const error = useSelector(selectError);
+  const status = useSelector(selectStatus);
+  const isLoading = useSelector(selectIsLoading);
+  console.log("isLoading: ", isLoading)
 
   const dispatch = useDispatch();
 
@@ -56,15 +65,16 @@ const Movies = () => {
     });
   }
 
-  //const shortening = ()
-
   useEffect(() => {
     //setCurrentPage(0);
     splitPages(copyMovies, 12);
   }, [copyMovies])
 
   useEffect(() => {
-    if(movies?.length === 0){
+    if(status === 429){
+      return
+    }
+    if(movies?.length < 1){
       dispatch(getMovies())
     }
     //console.log(movies)
@@ -93,14 +103,17 @@ const Movies = () => {
 
   return (
     <>
-      { error === "Network Error" ?
-        (<NotFound />):(
+      { (error === "Network Error" || status === 429) && movies.length < 1 ?
+          (<NotFound />)
+          : (movies?.length < 1 && isLoading) ?
+          <Loading />
+          : (
           <div className='flex flex-col justify-center items-center' >
             <div className={`${style.containerMovie}`}>
               {
                 filteredMovies?.length > 0 && filteredMovies?.map((movie, index) => (
                   <CardMovie
-                    key={movie.id}
+                    key={index}
                     id={movie.id}
                     image={movie.primaryImage?.url}
                     title={movie.originalTitleText?.text}
@@ -112,7 +125,7 @@ const Movies = () => {
             </div>
             <div className={`flex gap-[3px] w-[350px] justify-center items-center`}>
               <button onClick={prevPage} disabled={buttonPrevDisable} className={`${style.buttonAng}`}>
-                <img className={`border-[1px] w-[35px] sm:w-[45px]`} src={anguloIzq} alt="icon angulo izquierdo" />
+                <img className={`border-[1px] w-[35px] sm:w-[45px]`} src={icons.anguloIzq} alt="icon angulo izquierdo" />
               </button>
               <div className={`flex h-[40px]  sm:max-w-[300] sm:h-[50px] md:max-w-[400px] lg:max-w-[500px] overflow-x-auto ${style.customScrollbarHorizontal}`}>
                 {
@@ -126,11 +139,11 @@ const Movies = () => {
                 }
               </div>
               <button onClick={nextPage} disabled={buttonNextDisable} className={`${style.buttonAng}`}>
-                <img className={`border-[1px] w-[35px] sm:w-[45px]`} src={anguloDer} alt="icon angulo derecho" />
+                <img className={`border-[1px] w-[35px] sm:w-[45px]`} src={icons.anguloDer} alt="icon angulo derecho" />
               </button>
             </div>
               <div className={`relative top-[3vh] left-[30%] w-[30px] sm:w-[40px] border-[1px] `} onClick={irHaciaArriba}>
-                <img src={arriba} alt="icon agular hacia arriba" className={`w-[70px]`}/>
+                <img src={icons.arriba} alt="icon agular hacia arriba" className={`w-[70px]`}/>
               </div>
           </div>
         )
