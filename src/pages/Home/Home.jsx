@@ -18,23 +18,23 @@ const Home = () => {
   console.log("actors: ", actors)
 
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if(status === 429){
-  //     return
-  //   }
-  //   if(actors?.length === 0 || !actors){
-  //     dispatch(getActors())
-  //   }
-  // }, [actors])
-
   useEffect(() => {
     if(status === 429){
       return
     }
-    if(error !== ""){
-      dispatch(setIsModalOpen(true))
+    if(actors?.length === 0 || !actors){
+      dispatch(getActors())
     }
-  }, [error])
+  }, [actors])
+
+  // useEffect(() => {
+  //   if(status === 429){
+  //     return
+  //   }
+  //   if(error !== ""){
+  //     dispatch(setIsModalOpen(true))
+  //   }
+  // }, [error])
 
   return (
     <div>

@@ -21,7 +21,7 @@ const initialState = {
 export const getMovies = createAsyncThunk("app/getMovies", async() => {
   try {
     let allMovies = [];
-    for(let i = 1; i < 30; i++){
+    for(let i = 40; i < 50; i++){
       const {data} = await axios.get(`${urlApi}?limit=50&page=${i}`, {
         headers: {
           'X-RapidAPI-Key': '094ef17c14msh3c9f12c24492db1p193f63jsne263e5d9fadb',
@@ -31,17 +31,17 @@ export const getMovies = createAsyncThunk("app/getMovies", async() => {
       //const pageMovies = data.results?.map(movie => {return movie})
       allMovies = [...allMovies, ...data.results]
     }
-    return allMovies = [...allMovies, ...movies2];
+    return allMovies = [...movies2, ...allMovies];
     //console.log("redux", data.results)
   } catch (error) {
     console.log("ERROR REDUX getMovies: ", error);
-    if(error.response.status === 429){
+    if(error.response?.status === 429){
       return {
-        message: error.response.data?.message,
-        status: error.response.status
+        message: error.response?.data?.message,
+        status: error.response?.status
       };
     }
-    return error.response.data
+    return error.message
   }
 });
 
@@ -70,7 +70,7 @@ export const getMovieById = createAsyncThunk("app/getMovieById", async({id}) => 
 export const getActors = createAsyncThunk("app/getActors", async() => {
   try {
     let allActors = [];
-    for(let i = 1; i < 50; i++){
+    for(let i = 1; i < 10; i++){
       let { data } = await axios.get(`${urlApiActors}?limit=50&page=${i}`, {
         headers: {
           'X-RapidAPI-Key': '094ef17c14msh3c9f12c24492db1p193f63jsne263e5d9fadb',
