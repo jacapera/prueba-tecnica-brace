@@ -21,7 +21,7 @@ const initialState = {
 export const getMovies = createAsyncThunk("app/getMovies", async() => {
   try {
     let allMovies = [];
-    for(let i = 1; i < 50; i++){
+    for(let i = 1; i < 30; i++){
       const {data} = await axios.get(`${urlApi}?limit=50&page=${i}`, {
         headers: {
           'X-RapidAPI-Key': '094ef17c14msh3c9f12c24492db1p193f63jsne263e5d9fadb',
@@ -31,7 +31,7 @@ export const getMovies = createAsyncThunk("app/getMovies", async() => {
       //const pageMovies = data.results?.map(movie => {return movie})
       allMovies = [...allMovies, ...data.results]
     }
-    return allMovies;
+    return allMovies = [...allMovies, ...movies2];
     //console.log("redux", data.results)
   } catch (error) {
     console.log("ERROR REDUX getMovies: ", error);
@@ -207,8 +207,9 @@ const appSlice = createSlice({
         state.status = null;
         return
       } else {
-        state.error = action.payload.message
-        state.status = action.payload.status
+        state.error = action.payload.message;
+        state.status = action.payload.status;
+        state.isLoading = false;
       }
       //state.movies = [...movies2, ...action.payload?.results];
       //state.copyMovies = [...movies2, ...action.payload?.results];

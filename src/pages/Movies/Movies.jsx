@@ -125,7 +125,7 @@ const Movies = () => {
             </div>
             <div className={`flex gap-[3px] w-[350px] justify-center items-center`}>
               <button onClick={prevPage} disabled={buttonPrevDisable} className={`${style.buttonAng}`}>
-                <img className={`border-[1px] w-[35px] sm:w-[45px]`} src={icons.anguloIzq} alt="icon angulo izquierdo" />
+                <img className={`border-[1px] w-[35px] sm:w-[45px] md:w-[55px]`} src={icons.anguloIzq} alt="icon angulo izquierdo" />
               </button>
               <div className={`flex h-[40px]  sm:max-w-[300] sm:h-[50px] md:max-w-[400px] lg:max-w-[500px] overflow-x-auto ${style.customScrollbarHorizontal}`}>
                 {
