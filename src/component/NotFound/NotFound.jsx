@@ -17,19 +17,19 @@ const NotFound = () => {
       bg-slate-800
     `}>
       <h1 className={`
-        text-4xl
+        text-2xl
         text-white
         font-bold
-        md:text-6xl
-      `}>404 | Not Found</h1>
+        sm:text-4xl
+      `}>{`${status} | Not Found`}</h1>
       <div>
         {
-          (error !== "" || status === 429) &&
+          (error !== "" || status ) &&
             <h1 className={`
             text-2xl
             text-white
             font-bold
-            md:text-2xl
+            md:text-4xl
             `}>{error}</h1>
         }
       </div>

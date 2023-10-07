@@ -27,7 +27,7 @@ const Movies = () => {
   const error = useSelector(selectError);
   const status = useSelector(selectStatus);
   const isLoading = useSelector(selectIsLoading);
-  console.log("isLoading: ", isLoading)
+  //console.log("isLoading: ", isLoading)
 
   const dispatch = useDispatch();
 
@@ -103,7 +103,7 @@ const Movies = () => {
 
   return (
     <>
-      { (error === "Network Error" || status === 429) && movies.length < 1 ?
+      { (error || status) && movies.length < 1 ?
           (<NotFound />)
           : (movies?.length < 1 && isLoading) ?
           <Loading />

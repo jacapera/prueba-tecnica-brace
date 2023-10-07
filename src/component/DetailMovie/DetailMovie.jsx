@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
-import { getActors, getMovieById, selectActors, selectIsLoading, selectStatus, setError } from '../../redux/appSlice';
+import { getActors, getMovieById, selectActors, selectError, selectIsLoading, selectStatus, setError } from '../../redux/appSlice';
 import CardActor from '../CardActor/CardActor';
 import fondo from '../../assets/fondo.jpg'
 import defaultImage from '../../assets/pngwing.com.png'
@@ -17,11 +17,12 @@ const DetailMovie = () => {
   const actors = useSelector(selectActors);
   const isLoading = useSelector(selectIsLoading);
   const status = useSelector(selectStatus);
+  const error = useSelector(selectError);
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //console.log("actorsFilter: ", actorsFilter)
-  console.log("isLoading DetailMovie:",isLoading)
+  //console.log("isLoading DetailMovie:",isLoading)
 
   const filteredActors = () => {
     const aux = actors?.filter(actor => actor.knownForTitles?.includes(id));
@@ -79,9 +80,9 @@ const DetailMovie = () => {
         </div>
       </div>
       {
-        (status === 429) ?
+        (error || status) ?
           (<NotFound />)
-          : (actors?.length < 1 || isLoading) ?
+          : (actors?.length < 1 && isLoading) ?
           <Loading />
           : (
             <div className={`flex items-center justify-center w-full h-[50%] p-[20px] rounded-md bg-slate-400/40 gap-6`}>
