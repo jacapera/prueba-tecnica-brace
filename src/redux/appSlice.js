@@ -43,7 +43,7 @@ export const getMovies = createAsyncThunk("app/getMovies", async() => {
       }
     }
     return {
-      message:error.response?.data.messages,
+      message:error.response?.data.messages ? error.response?.data.messages : error.response?.data.message,
       status: error.response?.status,
     }
   }
@@ -68,7 +68,7 @@ export const getMovieById = createAsyncThunk("app/getMovieById", async({id}) => 
       }
     }
     return {
-      message: error.response?.data?.messages,
+      message:error.response?.data.messages ? error.response?.data.messages : error.response?.data.message,
       status: error.response?.status
     };
   }
@@ -100,7 +100,7 @@ export const getActors = createAsyncThunk("app/getActors", async() => {
       }
     }
     return {
-      message: error.response?.data?.messages,
+      message:error.response?.data.messages ? error.response?.data.messages : error.response?.data.message,
       status: error.response?.status
     };
   }
