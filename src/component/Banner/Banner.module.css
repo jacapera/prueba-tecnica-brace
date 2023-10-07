@@ -116,7 +116,6 @@
         height: 100vh;
         padding: 10px;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
         background-position: center;
         background-size: cover;
@@ -126,7 +125,7 @@
         width: 100%;
         justify-content: space-between;
         position: relative;
-        top: 20%;
+        top: 50%;
     }
     .iconAngIzq{
         width: 4rem;
@@ -152,9 +151,8 @@
     .containerbuttonSlide{
         display: flex;
         gap: 15px;
-        position: absolute;
-        top: 30%;
-        /* background-color: green; */
+        position: relative;
+        bottom: 0%;
     }
     .infoBanner{
         display: flex;
@@ -204,15 +202,50 @@
         font-size: 0.8rem;
     }
 }
-/* 
-@media screen and (min-width:1024px){
+
+@media screen and (min-width:1024px) and (max-width:1024px) {
+    .containerBanner{
+        height: 40vh;
+        background-position: center;
+        background-size: cover;
+    }
+    .slice{
+        display: flex;
+        position: relative;
+        top: 15vh;
+    }
     .containerbuttonSlide{
         display: flex;
         gap: 15px;
         position: relative;
-        top: 15%;
+        top: 0%;
     }
-} */
+    .infoBanner{
+        display: flex;
+        flex-direction: column;
+        width: 48%;
+        height: 20vh;
+        gap: 20px;
+        position: relative;
+        right: 18%;
+        top: -3vh;
+        /* background-color: blue; */
+    }
+    .titleBanner{
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    .descriptionBanner{
+        display: flex;
+        color: #fff;
+        overflow: hidden;
+        width: 100%;
+        height: 50vh;
+        text-overflow: ellipsis;
+        font-size: 0.8rem;
+    }
+}
 
 .iconAngIzq:hover{
     background-color: transparent;
