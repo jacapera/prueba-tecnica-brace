@@ -3,19 +3,18 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        height: 250px;
         justify-content: center;
         align-items: center;
         margin: 10px 0;
+        padding: 0 15px;
         gap: 10px;
-        padding: 5px;
     }
     .inputName{
         display: flex;
         justify-content: center;
         align-items: center;
         align-content: center;
-        width: 500px;
+        width: 100%;
         height: 30px;
         padding: 15px;
         border-radius: 7px;
@@ -29,15 +28,15 @@
         justify-content: center;
         width: 20px;
         height: 20px;
-        position: relative;
-        right: 25px;
+        position: absolute;
+        right: 10%;
         cursor: pointer;
     }
     .selectYear{
         display: flex;
         width: 80px;
-        height: 38px;
-        padding: 7px;
+        height: 37px;
+        padding: 4px;
         border: 1px solid black;
         border-radius: 8px;
     }
@@ -49,20 +48,29 @@
         justify-content: center;
         width: 100%;
         align-items: center;
-        height: 150px;
+        /* height: 250px; */
         gap: 20px;
+        padding: 10px;
     }
-    .inputName{
-        width: 90%;
+    .logoBuscar{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        left: 94%;
+        cursor: pointer;
     }
+
 }
 
 @media screen and (min-width:768px){
     .containerSearchBar{
         display: flex;
         flex-direction: column;
-        width: 100%;
-        max-width: 1440px;
+        width: 90%;
+        max-width: 1024px;
         height: 150px;
         justify-content: center;
         align-items: center;
@@ -89,8 +97,8 @@
         display: flex;
         width: 30px;
         height: 30px;
-        position: relative;
-        right: 0rem;
+        position: absolute;
+        left: 94%;
         cursor: pointer;
     }
     .selectYear{

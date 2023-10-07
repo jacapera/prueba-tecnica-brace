@@ -9,10 +9,11 @@ function App() {
   return (
     <div className='
       flex flex-col
-      w-full h-full
+      w-[100%] h-full
       justify-content
       items-center
       content-center
+      m-0 p-0
     '>
 
       <Routes>

@@ -49,10 +49,10 @@ const DetailMovie = () => {
   }, [])
 
   return (
-    <div className={`flex flex-col gap-[10px] w-[100%] p-[10px] h-[100vh]  items-center justify-center md:max-w-[1440px] border-[1px]`}
+    <div className={`flex flex-col gap-[10px] w-screen p-[10px] h-[100vh]  items-center justify-center sm:max-w-[1440px] border-[1px]`}
     style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),url('${fondo}')` }}>
       <img onClick={() => navigate("/")} src={icons.anguloIzq} alt="icon angulo izquierdo" className={`w-[50px] absolute top-[10%] left-2 p-[8px] rounded-md bg-slate-400`} />
-      <div className={`flex bg-slate-400/40 gap-[10px] w-[100%] h-[60%] p-[20px] ml-[50px] rounded-[9px] items-center justify-center md:max-w-[700px] `}>
+      <div className={`flex flex-col bg-slate-400/40 gap-[10px] w-[100%] h-[60%] p-[20px] ml-[50px] rounded-[9px] items-center justify-center sm:flex-row md:max-w-[900px] `}>
         <div className={`flex w-[50%] rounded-md`}>
           <img src={!movie?.primaryImage?.url ? defaultImage : movie?.primaryImage?.url  } alt={movie?.caption?.plainText}
             className={`flex h-[100%] rounded-md`}
@@ -85,7 +85,7 @@ const DetailMovie = () => {
           : (actors?.length < 1 && isLoading) ?
           <Loading />
           : (
-            <div className={`flex items-center justify-center w-full h-[50%] p-[20px] rounded-md bg-slate-400/40 gap-6`}>
+            <div className={`flex items-center justify-center max-w-[1440px] h-[50%] p-[20px] rounded-md bg-slate-400/40 gap-6`}>
               <div className={`flex flex-wrap gap-[30px] justify-center items-center bg-slate-100 p-[10px] rounded-md`}>
                 {
                   actorsFilter?.map(actor => (

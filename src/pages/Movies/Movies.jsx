@@ -109,7 +109,7 @@ const Movies = () => {
           <Loading />
           : (
           <div className='flex flex-col justify-center items-center' >
-            <div className={`${style.containerMovie}`}>
+            <div className={`${style.containerMovie} md:w-full`}>
               {
                 filteredMovies?.length > 0 && filteredMovies?.map((movie, index) => (
                   <CardMovie
@@ -123,7 +123,7 @@ const Movies = () => {
                 ))
               }
             </div>
-            <div className={`flex gap-[3px] w-[350px] justify-center items-center`}>
+            <div className={`flex gap-[15px] w-[350px] justify-center items-center`}>
               <button onClick={prevPage} disabled={buttonPrevDisable} className={`${style.buttonAng}`}>
                 <img className={`border-[1px] w-[35px] sm:w-[45px] md:w-[55px]`} src={icons.anguloIzq} alt="icon angulo izquierdo" />
               </button>

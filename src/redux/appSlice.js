@@ -120,8 +120,14 @@ const appSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    setStatus: (state, action) => {
+      state.status = action.payload;
+    },
     setCopyMovies: (state, action) => {
       state.copyMovies = action.payload;
+    },
+    setMovies: (state, action) => {
+      state.movies = action.payload;
     },
     setYears: (state, action) => {
       const { movies } = action.payload;
@@ -269,6 +275,7 @@ export const {
   setIndex,
   setYears,
   setError,
+  setStatus,
   setIsModalOpen,
   setTitleType,
   setFilteredMovieByYear,
@@ -276,6 +283,7 @@ export const {
   filterByName,
   orderByNameAsc,
   orderByNameDes,
+  setMovies,
   setCopyMovies,
 } = appSlice.actions;
 export const selectMovies = (state) => state.app.movies;

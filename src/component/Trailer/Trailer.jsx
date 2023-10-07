@@ -14,6 +14,8 @@ const Trailer = () => {
   const navigate = useNavigate();
 
   const opts = {
+    minWidth:'320px',
+    maxWidth:'768px',
     playerVars: {
       // Opciones de reproducción de YouTube (opcional)
       autoplay: 1, // Reproducción automática
@@ -25,13 +27,13 @@ const Trailer = () => {
   }, [id]);
 
   return (
-    <div className={`flex flex-col w-full h-[100vh] justify-center items-center`}>
+    <div className={`flex flex-col w-[100%] h-[100vh] justify-center items-center`}>
       <img onClick={() => navigate("/")} src={back} alt="icon angulo izquierdo" className={`w-[50px] absolute top-1 left-2`} />
-      <div className={`flex items-center justify-center max-w-[600px]`}>
-        <YouTube videoId={trailer} opts={opts} />
+      <div className={`flex w-[100%] items-center justify-center `}>
+        <YouTube  videoId={trailer} opts={opts} />
       </div>
-      <div className={`flex w-full items-center justify-center`}>
-        <h1 className={`w-[640px] text-left text-2xl font-bold`}>{slides[id].title} - Trailer</h1>
+      <div className={`flex w-[100%] items-center justify-start py-[5px]  ` }>
+        <h1 className={`text-2xl font-bold`}>{slides[id].title} - Trailer</h1>
       </div>
     </div>
   )

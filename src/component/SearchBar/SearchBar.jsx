@@ -18,13 +18,17 @@ import {
   selectTitleType,
   selectYears,
   setCopyMovies,
+  setError,
   setFilteredMovieByYear,
   setIndex,
   setIsModalOpen,
+  setMovies,
+  setStatus,
   setTitleType,
   setYears
 } from '../../redux/appSlice'
 import Modal from '../Modal/Modal'
+import moviesLocal from '../../utils/movies'
 
 const SearchBar = () => {
 
@@ -92,6 +96,14 @@ const SearchBar = () => {
     }
   };
 
+  const viewMoviesLocal = () => {
+    dispatch(setMovies(moviesLocal));
+    dispatch(setCopyMovies(moviesLocal))
+    dispatch(setError(""))
+    dispatch(setStatus(null))
+    console.log(moviesLocal)
+  }
+
   useEffect(() => {
     if(years?.length === 0){
       dispatch(setYears({movies}))
@@ -101,29 +113,31 @@ const SearchBar = () => {
     }
   },[movies])
 
-  useEffect(() => {
-    if(status === 429){
-      return
-    }
-    if(error !== ""){
-      dispatch(setIsModalOpen(true))
-    }
-  }, [dispatch])
+  // useEffect(() => {
+  //   if(status === 429){
+  //     return
+  //   }
+  //   if(error !== ""){
+  //     dispatch(setIsModalOpen(true))
+  //   }
+  // }, [dispatch])
 
   return (
-    <div className={`${style.containerSearchBar} `}>
+    <div className={`${style.containerSearchBar}`}>
 
-      <div className={`flex items-center justify-center w-[90%] sm:w-[90%] md:w-[100vh] `}>
-        <input
-          className={`flex w-[100%] h-[40px] border-[1px] border-black rounded-md p-[8px] md:w-[100vh]`}
-          type='text'
-          placeholder='What do you want to watch?'
-          name='name'
-          value={name}
-          onChange={handleName}
-        />
+      <div className='flex items-center border-[1px] w-full  relative '>
+        <div className={`flex items-center justify-center w-[100%] lg:max-w-[1440px]`}>
+          <input
+            className={`flex w-[100%]  h-[40px] border-[1px] border-black rounded-md p-[8px]`}
+            type='text'
+            placeholder='What do you want to watch?'
+            name='name'
+            value={name}
+            onChange={handleName}
+          />
+        </div>
         <div
-          className={`relative right-[5vh] w-[25px] ${style.logoBuscar}`}
+          className={`right-[2vh] w-[25px] ${style.logoBuscar}`}
           onClick={handleFindByName}
         >
           <img src={buscar} />
@@ -132,13 +146,11 @@ const SearchBar = () => {
 
       <div className={`
         flex flex-col gap-[5px]
-        items-center
-
-        sm:flex-row sm:w-[100%]
-        sm:justify-between md:w-[97vh]
+        items-center w-[100%]
+        sm:flex-row sm:justify-between
       `}>
           <select
-            className={`font-bold border-[1px] p-[7px] border-black h-[42px] rounded-md ${style.selectYear} `}
+            className={`font-bold border-[1px]  border-black rounded-md ${style.selectYear} `}
             value={"default"}
             onChange={handleChange}
           >
@@ -151,7 +163,9 @@ const SearchBar = () => {
           </select>
           <div >
             <div className={`
-              flex w-[140px] h-[45px]
+              flex w-[140px] h-[37px]
+              items-center
+              sm:h-[45px]
               justify-between
               rounded-[7px] border-[1px] py-[10px] px-[13px]
               border-black
@@ -166,7 +180,9 @@ const SearchBar = () => {
           </div>
           <div>
             <div className={`
-              flex w-[140px] h-[45px]
+              flex w-[140px] h-[37px]
+              items-center
+              sm:h-[45px]
               justify-between
               rounded-[7px] border-[1px] py-[10px] px-[13px]
               border-black
@@ -182,7 +198,8 @@ const SearchBar = () => {
           <button
             onClick={clear}
             className={`
-              flex w-[100px] h-[45px]
+              flex w-[100px] h-[37px]
+              sm:h-[45px]
               justify-center items-center
               p-[7px] rounded-[7px]
               border-[1px] bg-red-500
@@ -190,6 +207,22 @@ const SearchBar = () => {
               cursor-pointer
             `}
           >LIMPIAR</button>
+      </div>
+      <div className='flex flex-col justify-center items-center gap-[5px] '>
+        <h1 className='text-2xl'>Ver movies en local</h1>
+        <button
+          onClick={viewMoviesLocal}
+          className={`
+            flex w-[100px] h-[37px]
+            sm:h-[45px]
+            justify-center items-center
+            p-[7px] rounded-[7px]
+            border-[1px] bg-green-500
+            text-white font-bold
+            cursor-pointer
+            hover:scale-110
+          `}
+        >MOVIES</button>
       </div>
       {
         isModalOpen && <Modal message={error} />

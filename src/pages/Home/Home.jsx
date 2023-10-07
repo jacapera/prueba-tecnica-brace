@@ -42,20 +42,20 @@ const Home = () => {
         isModalOpen ? <Modal message={error} /> :
           <div className='
           flex flex-col
-          content-center
+          justify-center items-center
           w-[100%]
           '>
-            <header className='flex justify-center'>
+            <header className='flex w-[100%] '>
               <NavBar />
               <Banner slides={slides}/>
             </header>
             <main className={`
-              flex flex-col justify-center items-center
+              flex flex-col w-[100%] justify-center items-center
             `}>
               <header className={`
                 flex
-                w-[420px]
-                sm:w-[90%]
+                items-center justify-center
+                w-[100%]
               `}>
                 <SearchBar />
               </header>
